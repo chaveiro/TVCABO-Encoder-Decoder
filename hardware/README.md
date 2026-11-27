@@ -15,3 +15,9 @@ from the firmware and the picture, not from the PCB.
 The encoder uses the same board: same pins, same 4051 codes; it drives the 4051 from a *clean* input instead of
 from a coded one. Whether the analog path (levels, filters L1–L4) gives clean data-bit levels at the decoder's slicer
 is the main open hardware question (see `USAGE.md` §7).
+
+## Design files
+
+* `Multiplatform CVBS Processor.sch` / `.brd` – schematic and board layout in the EAGLE format
+  (the parts list contains the 4051, 4066, BS170 and the crystal of this design); `Multiplatform CVBS Processor.gif`
+  is a picture of the board. 

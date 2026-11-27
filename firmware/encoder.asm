@@ -408,9 +408,9 @@ nl4:	cbr	flag,exp2(vprv)
 ; data line coming: choose inversion pattern and build the 3 bytes
 	inc	seqn
 	cbr	flag,(exp2(video)|exp2(burst))
-	sbrc	seqn,0
-	sbr	flag,exp2(video)
-	sbrc	seqn,1
+	sbrc	seqn,1	; (bits 1,2: with 2 data lines per frame, bit 0 would lock
+	sbr	flag,exp2(video)	;  the video flag to the field)
+	sbrc	seqn,2
 	sbr	flag,exp2(burst)
 	mov	datak,kreg	; nonce; kpre was prepared (F(kreg)) in the previous data ISR
 	ldi	temp,0xFF
@@ -446,186 +446,187 @@ dline:	cbr	flag,exp2(data); desliga o modo de leitura de dados
 	rcall	pausar	; 7 cycles
 	rjmp	w1
 w1:
-	nop
+	rjmp	w2
+w2:
 	ldi	temp,dlo
 	sbrc	datak,7
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 0
-	rjmp	w2
-w2:
 	rjmp	w3
 w3:
+	rjmp	w4
+w4:
 	ldi	temp,dlo
 	sbrc	datak,6
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 1
-	rjmp	w4
-w4:
 	rjmp	w5
 w5:
+	rjmp	w6
+w6:
 	ldi	temp,dlo
 	sbrc	datak,5
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 2
-	rjmp	w6
-w6:
 	rjmp	w7
 w7:
+	rjmp	w8
+w8:
 	ldi	temp,dlo
 	sbrc	datak,4
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 3
-	rjmp	w8
-w8:
+	rjmp	w9
+w9:
 	nop
 	ldi	temp,dlo
 	sbrc	datak,3
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 4
-	rjmp	w9
-w9:
 	rjmp	w10
 w10:
+	rjmp	w11
+w11:
 	ldi	temp,dlo
 	sbrc	datak,2
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 5
-	rjmp	w11
-w11:
 	rjmp	w12
 w12:
+	rjmp	w13
+w13:
 	ldi	temp,dlo
 	sbrc	datak,1
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 6
-	rjmp	w13
-w13:
 	rjmp	w14
 w14:
+	rjmp	w15
+w15:
 	ldi	temp,dlo
 	sbrc	datak,0
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 7
-	rjmp	w15
-w15:
+	rjmp	w16
+w16:
 	nop
 	ldi	temp,dlo
 	sbrc	datav,7
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 8
-	rjmp	w16
-w16:
 	rjmp	w17
 w17:
+	rjmp	w18
+w18:
 	ldi	temp,dlo
 	sbrc	datav,6
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 9
-	rjmp	w18
-w18:
 	rjmp	w19
 w19:
+	rjmp	w20
+w20:
 	ldi	temp,dlo
 	sbrc	datav,5
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 10
-	rjmp	w20
-w20:
 	rjmp	w21
 w21:
+	rjmp	w22
+w22:
 	ldi	temp,dlo
 	sbrc	datav,4
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 11
-	rjmp	w22
-w22:
+	rjmp	w23
+w23:
 	nop
 	ldi	temp,dlo
 	sbrc	datav,3
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 12
-	rjmp	w23
-w23:
 	rjmp	w24
 w24:
+	rjmp	w25
+w25:
 	ldi	temp,dlo
 	sbrc	datav,2
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 13
-	rjmp	w25
-w25:
 	rjmp	w26
 w26:
+	rjmp	w27
+w27:
 	ldi	temp,dlo
 	sbrc	datav,1
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 14
-	rjmp	w27
-w27:
 	rjmp	w28
 w28:
+	rjmp	w29
+w29:
 	ldi	temp,dlo
 	sbrc	datav,0
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 15
-	rjmp	w29
-w29:
+	rjmp	w30
+w30:
 	nop
 	ldi	temp,dlo
 	sbrc	datab,7
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 16
-	rjmp	w30
-w30:
 	rjmp	w31
 w31:
+	rjmp	w32
+w32:
 	ldi	temp,dlo
 	sbrc	datab,6
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 17
-	rjmp	w32
-w32:
 	rjmp	w33
 w33:
+	rjmp	w34
+w34:
 	ldi	temp,dlo
 	sbrc	datab,5
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 18
-	rjmp	w34
-w34:
 	rjmp	w35
 w35:
+	rjmp	w36
+w36:
 	ldi	temp,dlo
 	sbrc	datab,4
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 19
-	rjmp	w36
-w36:
+	rjmp	w37
+w37:
 	nop
 	ldi	temp,dlo
 	sbrc	datab,3
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 20
-	rjmp	w37
-w37:
 	rjmp	w38
 w38:
+	rjmp	w39
+w39:
 	ldi	temp,dlo
 	sbrc	datab,2
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 21
-	rjmp	w39
-w39:
 	rjmp	w40
 w40:
+	rjmp	w41
+w41:
 	ldi	temp,dlo
 	sbrc	datab,1
 	ldi	temp,dhi
 	out	PORTD,temp	; bit 22
-	rjmp	w41
-w41:
 	rjmp	w42
 w42:
+	rjmp	w43
+w43:
 	ldi	temp,dlo
 	sbrc	datab,0
 	ldi	temp,dhi

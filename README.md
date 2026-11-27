@@ -19,8 +19,9 @@ operators moved to digital. The decoder presented here is a real source code tha
 The box watched the line sync and re-inverted the parts of the picture that the operator had inverted, namely the video and the colour burst. One data line per field (lines 5 and 317) told it which parts to flip.
 Other variations also scrambled audio.
 
-This repository is a technical and historical preservation of that design, and
-nothing in it touches any current service. It contains:
+This repository is a technical and historical preservation of that design.
+
+It contains:
 
 - the decoder firmware, with its original (Portuguese) comments;
 - a new encoder, so the same hardware can also produce a coded signal;
@@ -63,8 +64,7 @@ sync/burst/video windows and inserts the reference pulses and data lines.
 
 
 
-## Firmware for the **V41 / "TVRabo box"** SCART video board: a 10 MHz AT90S1200,
-a 4051 analog multiplexer, 4066 switches and a VCXO-locked line clock.
+## Firmware 
 
 | | |
 |---|---|

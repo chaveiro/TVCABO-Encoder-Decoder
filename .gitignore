@@ -1,0 +1,7 @@
+keys/*
+firmware/key.local.inc
+*.eep
+*.eep.hex
+*.pyc
+__pycache__/
+!keys/.gitkeep
